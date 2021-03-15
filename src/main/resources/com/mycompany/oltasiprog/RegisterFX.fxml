@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="com.mycompany.oltasiprog.RegisterPage">
+   <children>
+      <Label contentDisplay="CENTER" layoutX="171.0" layoutY="59.0" prefHeight="55.0" prefWidth="379.0" text="COVID-19 Regisztráció" textAlignment="CENTER">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="152.0" prefHeight="42.0" prefWidth="238.0" text="Kérjük írja be a TAJ számát!">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="256.0" prefHeight="42.0" prefWidth="238.0" text="Kérjük adja meg email-címét!">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="339.0" prefHeight="42.0" prefWidth="324.0" text="Telefonszámát, hogy értesíteni tudjuk!">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TAJszam" layoutX="136.0" layoutY="202.0" prefHeight="42.0" prefWidth="277.0" text="123 456 789">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="Email" layoutX="136.0" layoutY="298.0" prefHeight="42.0" prefWidth="277.0" text="email@email.com">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="MobilePhone" layoutX="136.0" layoutY="381.0" prefHeight="42.0" prefWidth="277.0" text="06 30 123 4567">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <Label layoutX="136.0" layoutY="441.0" prefHeight="42.0" prefWidth="197.0" text="Adjon meg egy jelszót!">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="528.0" prefHeight="42.0" prefWidth="197.0" text="Jelszó mégegyszer!">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="Password" layoutX="136.0" layoutY="486.0" prefHeight="42.0" prefWidth="277.0" text="password" />
+      <PasswordField fx:id="Password2" layoutX="136.0" layoutY="570.0" prefHeight="42.0" prefWidth="277.0" text="password" />
+      <ImageView fitHeight="227.0" fitWidth="238.0" layoutX="451.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/CovidPIC.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="RegisztraciosGomb" layoutX="291.0" layoutY="638.0" mnemonicParsing="false" onAction="#RegisztraciosGombEvent" prefHeight="32.0" prefWidth="138.0" style="-fx-background-color: #d1d7ff;" text="Regisztrálás" />
+   </children>
+</AnchorPane>
