@@ -16,6 +16,8 @@ import org.h2.tools.Server;
 /**
  * JavaFX App
  */
+
+//ez egy komment
 public class App extends Application {
 
     private static Scene scene;
