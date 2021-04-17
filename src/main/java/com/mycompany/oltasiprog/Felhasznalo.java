@@ -2,21 +2,44 @@ package com.mycompany.oltasiprog;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
+
 @Entity
+@Table(name="Felhasznalok")
 public class Felhasznalo {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="ID")
     private Long id;
-
-    private String name;
-
+    @Column(name="nev")
+    private String nev;
+    @Column(name="taj")
     private String taj;
-
+    @Column(name="email")
     private String email;
-
+    @Column(name="jelszo")
     private String jelszo;
+    @Column(name="mobil")
+    private String mobil;
+    @Column(name="szulido")
+    private LocalDate szulido;
 
+    public LocalDate getSzulido() {
+        return szulido;
+    }
+
+    public void setSzulido(LocalDate szulido) {
+        this.szulido = szulido;
+    }
+
+    public String getMobil() {
+        return mobil;
+    }
+
+    public void setMobil(String mobil) {
+        this.mobil = mobil;
+    }
 
     public Long getId() {
         return id;
@@ -26,12 +49,12 @@ public class Felhasznalo {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNev() {
+        return nev;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNev(String name) {
+        this.nev = name;
     }
 
     public String getTaj() {
@@ -63,7 +86,7 @@ public class Felhasznalo {
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", name='" + name + " " + taj + " " + email +" " + jelszo + '\'' +
+                ", name='" + nev + " " + taj + " " + email +" " + jelszo + '\'' +
                 '}';
     }
 }

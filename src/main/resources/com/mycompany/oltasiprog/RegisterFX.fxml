@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -51,7 +52,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="136.0" layoutY="528.0" prefHeight="42.0" prefWidth="197.0" text="Adja meg korát!">
+      <Label layoutX="136.0" layoutY="528.0" prefHeight="42.0" prefWidth="252.0" text="Adja meg születési dátumát!">
          <font>
             <Font size="18.0" />
          </font>
@@ -63,10 +64,6 @@
          </image>
       </ImageView>
       <Button fx:id="RegisztraciosGomb" layoutX="291.0" layoutY="638.0" mnemonicParsing="false" onAction="#RegisztraciosGombEvent" prefHeight="32.0" prefWidth="138.0" style="-fx-background-color: #d1d7ff;" text="Regisztrálás" />
-      <TextField fx:id="Age" alignment="CENTER" layoutX="136.0" layoutY="570.0" prefHeight="42.0" prefWidth="73.0" text="35">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
+      <DatePicker fx:id="BirthDate" layoutX="135.0" layoutY="570.0" prefHeight="42.0" prefWidth="278.0" />
    </children>
 </AnchorPane>

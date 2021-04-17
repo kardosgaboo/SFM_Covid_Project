@@ -1,6 +1,8 @@
 package com.mycompany.oltasiprog;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
 import javafx.event.ActionEvent;
 
 /**
@@ -12,6 +14,7 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javax.persistence.EntityManager;
@@ -20,10 +23,7 @@ import javax.persistence.Persistence;
 
 public class RegisterPage {
     
-    DataStorage data = new DataStorage();
-    
-  //  final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("br.com.fredericci.pu");
-   // final EntityManager entityManager = entityManagerFactory.createEntityManager();
+    Felhasznalo data = new Felhasznalo();
     
     @FXML
     private TextField TAJszam;
@@ -41,21 +41,21 @@ public class RegisterPage {
     private Button RegisztraciosGomb;
 
     @FXML
-    private TextField Age;
+    private DatePicker BirthDate;
 
     @FXML
     void RegisztraciosGombEvent(ActionEvent event) throws IOException {
-           int taj = Integer.parseInt(TAJszam.getText());
+           String taj = TAJszam.getText();
            String email = Email.getText();
-           int mobile = Integer.parseInt(MobilePhone.getText());
+           String mobile = MobilePhone.getText();
            String pass = Password.getText();
-           int age = Integer.parseInt(Age.getText());
+           LocalDate szulIdo = BirthDate.getValue();
 
-           data.setTajSzam(taj);
+           data.setTaj(taj);
            data.setEmail(email);
-           data.setMobilePhone(mobile);
-           data.setPassword(pass);
-           data.setAge(age);
+           data.setMobil(mobile);
+           data.setJelszo(pass);
+           data.setSzulido(szulIdo);
            
         //entityManager.getTransaction().begin();
       //  entityManager.persist(data);
