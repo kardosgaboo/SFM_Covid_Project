@@ -3,6 +3,9 @@ package com.mycompany.oltasiprog;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import com.mycompany.oltasiprog.customer.CustomerDAO;
+import com.mycompany.oltasiprog.customer.CustomerDAOimpl;
+import com.mycompany.oltasiprog.customer.Felhasznalo;
 import javafx.event.ActionEvent;
 
 /**
@@ -17,13 +20,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class RegisterPage {
     
-    Felhasznalo data = new Felhasznalo();
+    //Felhasznalo data = new Felhasznalo();
+    CustomerDAO cdao = new CustomerDAOimpl();
     
     @FXML
     private TextField TAJszam;
@@ -45,23 +46,23 @@ public class RegisterPage {
 
     @FXML
     void RegisztraciosGombEvent(ActionEvent event) throws IOException {
-           String taj = TAJszam.getText();
-           String email = Email.getText();
-           String mobile = MobilePhone.getText();
-           String pass = Password.getText();
-           LocalDate szulIdo = BirthDate.getValue();
 
-           data.setTaj(taj);
-           data.setEmail(email);
-           data.setMobil(mobile);
-           data.setJelszo(pass);
-           data.setSzulido(szulIdo);
-           
-        //entityManager.getTransaction().begin();
-      //  entityManager.persist(data);
-       // entityManager.getTransaction().commit();
-           
-           App.setRoot("LoginFX");
+        Felhasznalo data = new Felhasznalo();
+
+        String taj = TAJszam.getText();
+        String email = Email.getText();
+        String mobile = MobilePhone.getText();
+        String pass = Password.getText();
+        LocalDate szulIdo = BirthDate.getValue();
+
+        data.setTaj(taj.replaceAll(" ", ""));
+        data.setEmail(email);
+        data.setMobil(mobile);
+        data.setJelszo(pass);
+        data.setSzulido(szulIdo);
+
+        cdao.saveCustomer(data);
+        App.setRoot("LoginFX");
     }
     
 }

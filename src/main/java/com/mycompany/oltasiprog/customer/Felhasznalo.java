@@ -1,4 +1,4 @@
-package com.mycompany.oltasiprog;
+package com.mycompany.oltasiprog.customer;
 
 
 
@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="Felhasznalok")
 public class Felhasznalo {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
