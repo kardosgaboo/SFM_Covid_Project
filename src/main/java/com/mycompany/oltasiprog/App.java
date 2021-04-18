@@ -5,14 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.h2.tools.Server;
 
-import java.io.IOException;
-
-import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.h2.tools.Server;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
 /**
  * JavaFX App
  */
@@ -43,25 +44,25 @@ public class App extends Application {
         
     public static void main(String[] args) throws SQLException {
         startDatabase();
-        launch();
-        final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("br.com.fredericci.pu");
-        final EntityManager entityManager = entityManagerFactory.createEntityManager();
-        DataStorage data = new DataStorage();
-        data.setAge(2);
+
+        /*Felhasznalo data = new Felhasznalo();
+        data.setSzulido(LocalDate.now());
+        data.setNev("Anna");
         data.setEmail("asdw");
-        data.setMobilePhone(231);
-        data.setPassword("ASDWQ");
-        data.setTajSzam(23132);
+        data.setMobil("231");
+        data.setJelszo("ASDWQ");
+        data.setTaj("23132");*/
         
-        entityManager.getTransaction().begin();
+        /*entityManager.getTransaction().begin();
         entityManager.persist(data);
-        entityManager.getTransaction().commit();
-        
-        
+        entityManager.getTransaction().commit();*/
+
+        launch();
     }
     
     private static void startDatabase() throws SQLException {
         new Server().runTool("-tcp", "-web", "-ifNotExists");
     }
+
 
 }

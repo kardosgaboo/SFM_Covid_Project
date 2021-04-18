@@ -1,6 +1,11 @@
 package com.mycompany.oltasiprog;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
+import com.mycompany.oltasiprog.customer.CustomerDAO;
+import com.mycompany.oltasiprog.customer.CustomerDAOimpl;
+import com.mycompany.oltasiprog.customer.Felhasznalo;
 import javafx.event.ActionEvent;
 
 /**
@@ -12,18 +17,14 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class RegisterPage {
     
-    DataStorage data = new DataStorage();
-    
-  //  final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("br.com.fredericci.pu");
-   // final EntityManager entityManager = entityManagerFactory.createEntityManager();
+    //Felhasznalo data = new Felhasznalo();
+    CustomerDAO cdao = new CustomerDAOimpl();
     
     @FXML
     private TextField TAJszam;
@@ -41,27 +42,27 @@ public class RegisterPage {
     private Button RegisztraciosGomb;
 
     @FXML
-    private TextField Age;
+    private DatePicker BirthDate;
 
     @FXML
     void RegisztraciosGombEvent(ActionEvent event) throws IOException {
-           int taj = Integer.parseInt(TAJszam.getText());
-           String email = Email.getText();
-           int mobile = Integer.parseInt(MobilePhone.getText());
-           String pass = Password.getText();
-           int age = Integer.parseInt(Age.getText());
 
-           data.setTajSzam(taj);
-           data.setEmail(email);
-           data.setMobilePhone(mobile);
-           data.setPassword(pass);
-           data.setAge(age);
-           
-        //entityManager.getTransaction().begin();
-      //  entityManager.persist(data);
-       // entityManager.getTransaction().commit();
-           
-           App.setRoot("LoginFX");
+        Felhasznalo data = new Felhasznalo();
+
+        String taj = TAJszam.getText();
+        String email = Email.getText();
+        String mobile = MobilePhone.getText();
+        String pass = Password.getText();
+        LocalDate szulIdo = BirthDate.getValue();
+
+        data.setTaj(taj.replaceAll(" ", ""));
+        data.setEmail(email);
+        data.setMobil(mobile);
+        data.setJelszo(pass);
+        data.setSzulido(szulIdo);
+
+        cdao.saveCustomer(data);
+        App.setRoot("LoginFX");
     }
     
 }

@@ -9,7 +9,7 @@
         <module name="OltasiProg" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
       <module name="OltasiProg" target="1.8" />
     </bytecodeTargetLevel>
   </component>
