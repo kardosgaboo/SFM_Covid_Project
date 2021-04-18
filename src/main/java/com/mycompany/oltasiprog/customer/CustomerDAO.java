@@ -10,4 +10,6 @@ public interface CustomerDAO extends AutoCloseable{
     public void updateCustomer(Felhasznalo c);
     public List<Felhasznalo> getCustomers();
     Optional<Felhasznalo> getCustomerByEmailAndPassword(String email, String password);
+    List<Felhasznalo> getCustomerByEmail(String email);
+    List<Felhasznalo> getCustomerByTaj(String taj);
 }

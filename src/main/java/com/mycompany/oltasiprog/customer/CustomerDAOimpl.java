@@ -51,6 +51,22 @@ public class CustomerDAOimpl implements CustomerDAO{
     }
 
     @Override
+    public List<Felhasznalo> getCustomerByEmail(String email) {
+        return entityManager.createQuery("select f from Felhasznalo f" +
+                " where f.email like :providedEmail", Felhasznalo.class)
+                .setParameter("providedEmail",email)
+                .getResultList();
+    }
+    @Override
+    public List<Felhasznalo> getCustomerByTaj(String taj) {
+        return entityManager.createQuery("select f from Felhasznalo f" +
+                " where f.taj like :providedTaj", Felhasznalo.class)
+                .setParameter("providedTaj",taj)
+                .getResultList();
+    }
+
+
+    @Override
     public void close() throws Exception {
         entityManager.close();
         entityManagerFactory.close();

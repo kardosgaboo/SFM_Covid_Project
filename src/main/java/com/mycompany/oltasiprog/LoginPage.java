@@ -51,7 +51,7 @@ public class LoginPage {
             }
             else{
                 System.out.println("Sikertelen belépés");
-                showStage();
+                loginPopup();
             }
         }catch (IOException e){
             System.err.println("Could not find MainPage" + e);
@@ -59,7 +59,7 @@ public class LoginPage {
         
     }
 
-    private static void showStage(){
+    private static void loginPopup(){
         Stage newStage = new Stage();
         DialogPane popup = new DialogPane();
         Label szoveg = new Label("Sikertelen belépés! Email cím vagy jelszó nem egyezik");

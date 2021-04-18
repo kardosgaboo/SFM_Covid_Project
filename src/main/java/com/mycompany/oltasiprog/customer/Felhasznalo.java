@@ -13,9 +13,9 @@ public class Felhasznalo {
     private Long id;
     @Column(name="nev")
     private String nev;
-    @Column(name="taj")
+    @Column(name="taj",unique = true)
     private String taj;
-    @Column(name="email")
+    @Column(name="email",unique = true)
     private String email;
     @Column(name="jelszo")
     private String jelszo;
