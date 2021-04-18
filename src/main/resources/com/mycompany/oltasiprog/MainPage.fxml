@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.MainPage">
+  <tabs>
+    <Tab text="Untitled Tab 1">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="406.0" prefWidth="645.0">
+               <children>
+                  <Text layoutX="150.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FŐOLDAL" textOrigin="CENTER">
+                     <font>
+                        <Font size="72.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="logoutButton" layoutX="467.0" layoutY="329.0" mnemonicParsing="false" onAction="#LogoutButtonEvent" prefHeight="26.0" prefWidth="118.0" text="Kijelentkezés" />
+                  <BorderPane layoutX="57.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Untitled Tab 2">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+      <Tab text="Untitled Tab">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+      <Tab text="Untitled Tab">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+  </tabs>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</TabPane>

@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 public class CustomerDAOimpl implements CustomerDAO{
 
@@ -34,6 +35,19 @@ public class CustomerDAOimpl implements CustomerDAO{
     public List<Felhasznalo> getCustomers() {
         TypedQuery<Felhasznalo> query = entityManager.createQuery("select f from Felhasznalo f",Felhasznalo.class);
         return query.getResultList();
+    }
+
+    @Override
+    public Optional<Felhasznalo> getCustomerByEmailAndPassword(String email, String password) {
+        List<Felhasznalo> resultList = entityManager.createQuery("select f from Felhasznalo f " +
+                "where f.email like :providedEmail and f.jelszo like :providedPassword",Felhasznalo.class)
+                .setParameter("providedEmail",email)
+                .setParameter("providedPassword", password)
+                .setMaxResults(1)
+                .getResultList();
+
+        return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
+
     }
 
     @Override

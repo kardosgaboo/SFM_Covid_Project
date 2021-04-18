@@ -1,6 +1,7 @@
 package com.mycompany.oltasiprog.customer;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomerDAO extends AutoCloseable{
 
@@ -8,4 +9,5 @@ public interface CustomerDAO extends AutoCloseable{
     public void deleteCustomer(Felhasznalo c);
     public void updateCustomer(Felhasznalo c);
     public List<Felhasznalo> getCustomers();
+    Optional<Felhasznalo> getCustomerByEmailAndPassword(String email, String password);
 }
