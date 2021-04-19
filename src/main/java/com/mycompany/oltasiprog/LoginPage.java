@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.mycompany.oltasiprog.customer.CustomerDAO;
 import com.mycompany.oltasiprog.customer.CustomerDAOimpl;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
