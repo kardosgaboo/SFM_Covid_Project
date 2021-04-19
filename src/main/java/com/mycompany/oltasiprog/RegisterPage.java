@@ -27,6 +27,9 @@ public class RegisterPage {
     CustomerDAO cdao = new CustomerDAOimpl();
 
     @FXML
+    private TextField RegisztracioNev;
+
+    @FXML
     private TextField TAJszam;
 
     @FXML
@@ -86,6 +89,7 @@ public class RegisterPage {
     @FXML
     void RegisztraciosGombEvent(ActionEvent event) throws IOException {
 
+        String nev = RegisztracioNev.getText();
         String taj = TAJszam.getText().replaceAll(" ", "");
         String email = Email.getText();
         String mobile = MobilePhone.getText();
@@ -98,6 +102,7 @@ public class RegisterPage {
             registerPopup("Taj szám");
         } else {
             Felhasznalo data = new Felhasznalo();
+            data.setNev(nev);
             data.setTaj(taj);
             data.setEmail(email);
             data.setMobil(mobile);
@@ -115,8 +120,8 @@ public class RegisterPage {
     }
 
     private boolean isValid(Felhasznalo f){
-        return f.getTaj()!=null && f.getEmail() != null && f.getJelszo() != null && f.getMobil() !=null
-                && f.getNev() != null && f.getSzulido() != null;
+        return f.getTaj().length()>0 && f.getEmail().length()>0 && f.getJelszo().length()>0 && f.getMobil().length()>0
+                && f.getNev().length()>0 && f.getSzulido() != null;
     }
 
     private boolean isExistingEmail(String email) {

@@ -37,6 +37,7 @@ public class MainPage {
         @FXML
         public void initialize() {
             Comb.getItems().removeAll(Comb.getItems());
+            VakcinaText.setText("");
             Comb.getItems().addAll("Pfizer", "Moderna", "Astrazeneca");
             //Comb.getSelectionModel().select("Moderna");
         }
