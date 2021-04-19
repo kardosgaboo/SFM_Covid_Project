@@ -44,6 +44,9 @@ public class RegisterPage {
     @FXML
     private DatePicker BirthDate;
 
+    @FXML
+    private Button RegisztracioVissza;
+
     private static void registerPopup(String hiba) {
         Stage newStage = new Stage();
         DialogPane popup = new DialogPane();
@@ -55,6 +58,29 @@ public class RegisterPage {
         Scene stageScene = new Scene(popup, 450, 100);
         newStage.setScene(stageScene);
         newStage.show();
+    }
+
+    private static void registerPopupNull() {
+        Stage newStage = new Stage();
+        DialogPane popup = new DialogPane();
+        Label szoveg = new Label("Minden adat kitöltése kötelező.");
+        popup.setContent(szoveg);
+        newStage.setResizable(false);
+        newStage.setTitle("Hiba!");
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        Scene stageScene = new Scene(popup, 450, 100);
+        newStage.setScene(stageScene);
+        newStage.show();
+    }
+
+
+    @FXML
+    void RegisztracioVisszaEvent(ActionEvent event) {
+        try {
+            App.setRoot("LoginFX");
+        } catch (IOException e) {
+            System.err.println("Could not find LoginPage" + e);
+        }
     }
 
     @FXML
@@ -77,10 +103,20 @@ public class RegisterPage {
             data.setMobil(mobile);
             data.setJelszo(pass);
             data.setSzulido(szulIdo);
+            if(!isValid(data)){
+                registerPopupNull();
+            }else{
+                cdao.saveCustomer(data);
+                App.setRoot("LoginFX");
+            }
 
-            cdao.saveCustomer(data);
-            App.setRoot("LoginFX");
+
         }
+    }
+
+    private boolean isValid(Felhasznalo f){
+        return f.getTaj()!=null && f.getEmail() != null && f.getJelszo() != null && f.getMobil() !=null
+                && f.getNev() != null && f.getSzulido() != null;
     }
 
     private boolean isExistingEmail(String email) {
