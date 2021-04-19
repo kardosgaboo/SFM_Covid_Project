@@ -10,60 +10,72 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.RegisterPage">
    <children>
-      <Label contentDisplay="CENTER" layoutX="171.0" layoutY="59.0" prefHeight="55.0" prefWidth="379.0" text="COVID-19 Regisztráció" textAlignment="CENTER">
+      <Label contentDisplay="CENTER" layoutX="170.0" layoutY="36.0" prefHeight="55.0" prefWidth="379.0" text="COVID-19 Regisztráció" textAlignment="CENTER">
          <font>
             <Font size="34.0" />
          </font>
       </Label>
-      <Label layoutX="136.0" layoutY="152.0" prefHeight="42.0" prefWidth="238.0" text="Kérjük írja be a TAJ számát!">
+      <Label layoutX="136.0" layoutY="226.0" prefHeight="42.0" prefWidth="238.0" text="TAJ szám">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="136.0" layoutY="256.0" prefHeight="42.0" prefWidth="238.0" text="Kérjük adja meg email-címét!">
+      <Label layoutX="136.0" layoutY="302.0" prefHeight="42.0" prefWidth="238.0" text="Email cím">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="136.0" layoutY="339.0" prefHeight="42.0" prefWidth="324.0" text="Telefonszámát, hogy értesíteni tudjuk!">
+      <Label layoutX="136.0" layoutY="377.0" prefHeight="42.0" prefWidth="324.0" text="Telefonszám">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="TAJszam" alignment="CENTER" layoutX="136.0" layoutY="202.0" prefHeight="42.0" prefWidth="277.0" text="123 456 789">
+      <TextField fx:id="TAJszam" layoutX="135.0" layoutY="270.0" minHeight="30.0" prefHeight="32.0" prefWidth="278.0" promptText="123 456 789">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <TextField fx:id="Email" layoutX="136.0" layoutY="298.0" prefHeight="42.0" prefWidth="277.0" text="email@email.com">
+      <TextField fx:id="Email" layoutX="134.0" layoutY="345.0" minHeight="30.0" prefHeight="32.0" prefWidth="278.0" promptText="example@email.com">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <TextField fx:id="MobilePhone" layoutX="136.0" layoutY="381.0" prefHeight="42.0" prefWidth="277.0" text="06 30 123 4567">
+      <TextField fx:id="MobilePhone" layoutX="135.0" layoutY="422.0" minHeight="30.0" prefHeight="30.0" prefWidth="277.0" promptText="06 30 123 4567">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <Label layoutX="136.0" layoutY="441.0" prefHeight="42.0" prefWidth="197.0" text="Adjon meg egy jelszót!">
+      <Label layoutX="135.0" layoutY="453.0" prefHeight="42.0" prefWidth="197.0" text="Jelszó">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="136.0" layoutY="528.0" prefHeight="42.0" prefWidth="252.0" text="Adja meg születési dátumát!">
+      <Label layoutX="136.0" layoutY="528.0" prefHeight="42.0" prefWidth="252.0" text="Születési dátum">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="Password" layoutX="136.0" layoutY="486.0" prefHeight="42.0" prefWidth="277.0" text="password" />
+      <PasswordField fx:id="Password" layoutX="135.0" layoutY="497.0" minHeight="30.0" prefWidth="277.0" promptText="••••••" />
       <ImageView fitHeight="227.0" fitWidth="238.0" layoutX="451.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Image/CovidPIC.png" />
          </image>
       </ImageView>
       <Button fx:id="RegisztraciosGomb" layoutX="291.0" layoutY="638.0" mnemonicParsing="false" onAction="#RegisztraciosGombEvent" prefHeight="32.0" prefWidth="138.0" style="-fx-background-color: #d1d7ff;" text="Regisztrálás" />
-      <DatePicker fx:id="BirthDate" layoutX="135.0" layoutY="570.0" prefHeight="42.0" prefWidth="278.0" />
+      <DatePicker fx:id="BirthDate" layoutX="135.0" layoutY="570.0" minHeight="30.0" prefWidth="278.0" />
+      <Button fx:id="RegisztracioVissza" layoutX="123.0" layoutY="638.0" mnemonicParsing="false" onAction="#RegisztracioVisszaEvent" prefHeight="32.0" prefWidth="138.0" style="-fx-background-color: #d1d7ff;" text="Vissza" />
+      <Label layoutX="136.0" layoutY="151.0" prefHeight="42.0" prefWidth="238.0" text="Név">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="RegisztracioNev" layoutX="135.0" layoutY="194.0" minHeight="30.0" prefHeight="32.0" prefWidth="278.0" promptText="Példa Név">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

@@ -27,6 +27,9 @@ public class RegisterPage {
     CustomerDAO cdao = new CustomerDAOimpl();
 
     @FXML
+    private TextField RegisztracioNev;
+
+    @FXML
     private TextField TAJszam;
 
     @FXML
@@ -44,6 +47,9 @@ public class RegisterPage {
     @FXML
     private DatePicker BirthDate;
 
+    @FXML
+    private Button RegisztracioVissza;
+
     private static void registerPopup(String hiba) {
         Stage newStage = new Stage();
         DialogPane popup = new DialogPane();
@@ -57,9 +63,33 @@ public class RegisterPage {
         newStage.show();
     }
 
+    private static void registerPopupNull() {
+        Stage newStage = new Stage();
+        DialogPane popup = new DialogPane();
+        Label szoveg = new Label("Minden adat kitöltése kötelező.");
+        popup.setContent(szoveg);
+        newStage.setResizable(false);
+        newStage.setTitle("Hiba!");
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        Scene stageScene = new Scene(popup, 450, 100);
+        newStage.setScene(stageScene);
+        newStage.show();
+    }
+
+
+    @FXML
+    void RegisztracioVisszaEvent(ActionEvent event) {
+        try {
+            App.setRoot("LoginFX");
+        } catch (IOException e) {
+            System.err.println("Could not find LoginPage" + e);
+        }
+    }
+
     @FXML
     void RegisztraciosGombEvent(ActionEvent event) throws IOException {
 
+        String nev = RegisztracioNev.getText();
         String taj = TAJszam.getText().replaceAll(" ", "");
         String email = Email.getText();
         String mobile = MobilePhone.getText();
@@ -72,15 +102,26 @@ public class RegisterPage {
             registerPopup("Taj szám");
         } else {
             Felhasznalo data = new Felhasznalo();
+            data.setNev(nev);
             data.setTaj(taj);
             data.setEmail(email);
             data.setMobil(mobile);
             data.setJelszo(pass);
             data.setSzulido(szulIdo);
+            if(!isValid(data)){
+                registerPopupNull();
+            }else{
+                cdao.saveCustomer(data);
+                App.setRoot("LoginFX");
+            }
 
-            cdao.saveCustomer(data);
-            App.setRoot("LoginFX");
+
         }
+    }
+
+    private boolean isValid(Felhasznalo f){
+        return f.getTaj().length()>0 && f.getEmail().length()>0 && f.getJelszo().length()>0 && f.getMobil().length()>0
+                && f.getNev().length()>0 && f.getSzulido() != null;
     }
 
     private boolean isExistingEmail(String email) {

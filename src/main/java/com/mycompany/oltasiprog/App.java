@@ -25,8 +25,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        //scene = new Scene(loadFXML("LoginFx"), 720, 720);
-        scene = new Scene(loadFXML("MainPage"), 720, 720);//Lehet választani, hogy tesztnél ne kelljen mindig belépni.
+        scene = new Scene(loadFXML("LoginFx"), 720, 720);
+        //scene = new Scene(loadFXML("MainPage"), 720, 720);//Lehet választani, hogy tesztnél ne kelljen mindig belépni.
         stage.setScene(scene);
         stage.show();
     }
