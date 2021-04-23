@@ -7,54 +7,73 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.MainPage">
+<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1; -fx-border-radius: 15;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.MainPage">
   <tabs>
     <Tab text="Főoldal">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="406.0" prefWidth="645.0">
+        <AnchorPane id="1" minHeight="0.0" minWidth="0.0" prefHeight="406.0" prefWidth="645.0">
                <children>
-                  <Text layoutX="150.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FŐOLDAL" textOrigin="CENTER">
-                     <font>
-                        <Font size="72.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="logoutButton" layoutX="467.0" layoutY="329.0" mnemonicParsing="false" onAction="#LogoutButtonEvent" prefHeight="26.0" prefWidth="118.0" text="Kijelentkezés" />
+                  <Button id="5757" fx:id="logoutButton" layoutX="542.0" layoutY="587.0" mnemonicParsing="false" onAction="#LogoutButtonEvent" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #d1d7ff; -fx-border-radius: 50; -fx-font-family: Garamond;" text="Kijelentkezés" />
                   <BorderPane layoutX="57.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Label layoutX="190.0" layoutY="169.0" text="FŐOLDAL">
+                     <font>
+                        <Font name="Georgia" size="72.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="109.0" layoutY="289.0" text="COVID-19 védőoltás regisztráció">
+                     <font>
+                        <Font name="Georgia" size="35.0" />
+                     </font>
+                  </Label>
                </children></AnchorPane>
       </content>
     </Tab>
     <Tab text="Oltási Pontok">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="408.0" fitWidth="576.0" layoutX="61.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../target/classes/com/mycompany/oltasiprog/Image/map.jpg" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Vakcina információk">
-         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Text fx:id="TextBox" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Válasszon a menüből" wrappingWidth="447.9830722808838" />
-                  <ComboBox fx:id="Comb" layoutX="21.0" layoutY="69.0" onAction="#SetText" prefHeight="29.0" prefWidth="258.0" promptText="Válasszon az elérhető vakcinákból" />
-                  <Label fx:id="VakcinaText" alignment="TOP_LEFT" layoutX="77.0" layoutY="117.0" prefHeight="233.0" prefWidth="449.0" text="Label" AnchorPane.topAnchor="117.0">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
       <Tab text="Önnek megfelelő vakcina">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TextField layoutX="69.0" layoutY="34.0" prefHeight="26.0" prefWidth="236.0" promptText="Önnek a következő vakcinát ajánljuk" />
+                  <TextField layoutX="69.0" layoutY="34.0" prefHeight="26.0" prefWidth="236.0" promptText="Önnek a következő vakcinát ajánljuk" text="Adatbazis utan implementalas" />
                </children></AnchorPane>
         </content>
+      </Tab>
+      <Tab text="Vakcina információk">
+         <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="732.0">
+               <children>
+                  <Text fx:id="TextBox" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Válasszon a menüből" wrappingWidth="447.9830722808838" />
+                  <ComboBox fx:id="Comb" layoutX="21.0" layoutY="69.0" onAction="#SetText" prefHeight="29.0" prefWidth="258.0" promptText="Válasszon az elérhető vakcinákból" style="-fx-background-color: #d1d7ff;" />
+                  <Label fx:id="VakcinaText" alignment="TOP_LEFT" layoutX="13.0" layoutY="114.0" prefHeight="527.0" prefWidth="683.0" style="-fx-font-family: Times New Roman; -fx-font-weight: bold; -fx-font-size: 14;" text="Label" AnchorPane.topAnchor="114.0">
+                     <font>
+                        <Font name="Gadugi" size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="vakcinainfoKep" fitHeight="150.0" fitWidth="200.0" layoutX="395.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Image/pfizerlogo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </content>
       </Tab>
   </tabs>
    <cursor>
