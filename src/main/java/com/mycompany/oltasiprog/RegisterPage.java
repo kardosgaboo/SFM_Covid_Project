@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import com.mycompany.oltasiprog.customer.CustomerDAO;
 import com.mycompany.oltasiprog.customer.CustomerDAOimpl;
 import com.mycompany.oltasiprog.customer.Felhasznalo;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 
 /**
@@ -16,12 +17,16 @@ import javafx.event.ActionEvent;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class RegisterPage {
+public class RegisterPage{
 
     //Felhasznalo data = new Felhasznalo();
     CustomerDAO cdao = new CustomerDAOimpl();
@@ -50,10 +55,44 @@ public class RegisterPage {
     @FXML
     private Button RegisztracioVissza;
 
-    private static void registerPopup(String hiba) {
+    @FXML
+    private Label popUpLabel;
+
+    @FXML
+    private Button closeButton;
+
+    @FXML
+    void closeButtonAction()
+    {
+        Stage stageToClose = (Stage) closeButton.getScene().getWindow();
+        stageToClose.close();
+    }
+
+    @FXML
+    void registerPopup(String message) {
+       try {
+           Stage newStage;
+           Parent root;
+           newStage = new Stage();
+           root = FXMLLoader.load(getClass().getResource("RegisterPopUpFX.fxml"));
+           newStage.setResizable(false);
+           //newStage.initModality(Modality.APPLICATION_MODAL);
+           System.out.println(message);
+           //popUpLabel.setText("valami"); EZ VALAMIÉRT NULLPOINTEREXCEPTION-T DOB
+           Scene scene = new Scene(root);
+           newStage.setScene(scene);
+           newStage.show();
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+
+
+    }
+
+   /* private static void registerPopup(String message) {
         Stage newStage = new Stage();
         DialogPane popup = new DialogPane();
-        Label szoveg = new Label("Sikertelen regisztráció! " + hiba + " már létezik.");
+        Label szoveg = new Label(message);
         popup.setContent(szoveg);
         newStage.setResizable(false);
         newStage.setTitle("Hiba!");
@@ -61,9 +100,9 @@ public class RegisterPage {
         Scene stageScene = new Scene(popup, 450, 100);
         newStage.setScene(stageScene);
         newStage.show();
-    }
+    }*/
 
-    private static void registerPopupNull() {
+    /*private static void registerPopupNull() {
         Stage newStage = new Stage();
         DialogPane popup = new DialogPane();
         Label szoveg = new Label("Minden adat kitöltése kötelező.");
@@ -74,7 +113,7 @@ public class RegisterPage {
         Scene stageScene = new Scene(popup, 450, 100);
         newStage.setScene(stageScene);
         newStage.show();
-    }
+    }*/
 
 
     @FXML
@@ -88,7 +127,7 @@ public class RegisterPage {
 
     @FXML
     void RegisztraciosGombEvent(ActionEvent event) throws IOException {
-
+        //TAJszam.setFocusTraversable(false);
         String nev = RegisztracioNev.getText();
         String taj = TAJszam.getText().replaceAll(" ", "");
         String email = Email.getText();
@@ -97,9 +136,9 @@ public class RegisterPage {
         LocalDate szulIdo = BirthDate.getValue();
 
         if (isExistingEmail(email)) {
-            registerPopup("Email");
+            registerPopup("Ez az email cím már létezik!");
         } else if (isExistingTaj(taj)) {
-            registerPopup("Taj szám");
+            registerPopup("Ez a tajszám már létezik!");
         } else {
             Felhasznalo data = new Felhasznalo();
             data.setNev(nev);
@@ -109,7 +148,7 @@ public class RegisterPage {
             data.setJelszo(pass);
             data.setSzulido(szulIdo);
             if(!isValid(data)){
-                registerPopupNull();
+                registerPopup("Minden adat kitöltése kötelező!");
             }else{
                 cdao.saveCustomer(data);
                 App.setRoot("LoginFX");

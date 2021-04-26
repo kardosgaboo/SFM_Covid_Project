@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.RegisterPage">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.RegisterPage">
    <children>
       <Label contentDisplay="CENTER" layoutX="170.0" layoutY="36.0" prefHeight="55.0" prefWidth="379.0" text="COVID-19 Regisztráció" textAlignment="CENTER">
          <font>
@@ -33,17 +32,17 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="TAJszam" layoutX="135.0" layoutY="270.0" minHeight="30.0" prefHeight="32.0" prefWidth="278.0" promptText="123 456 789">
+      <TextField fx:id="TAJszam" focusTraversable="false" layoutX="135.0" layoutY="270.0" minHeight="30.0" prefHeight="32.0" prefWidth="278.0" promptText="123 456 789">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <TextField fx:id="Email" layoutX="134.0" layoutY="345.0" minHeight="30.0" prefHeight="32.0" prefWidth="278.0" promptText="example@email.com">
+      <TextField fx:id="Email" focusTraversable="false" layoutX="134.0" layoutY="345.0" minHeight="30.0" prefHeight="32.0" prefWidth="278.0" promptText="example@email.com">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <TextField fx:id="MobilePhone" layoutX="135.0" layoutY="422.0" minHeight="30.0" prefHeight="30.0" prefWidth="277.0" promptText="06 30 123 4567">
+      <TextField fx:id="MobilePhone" focusTraversable="false" layoutX="135.0" layoutY="422.0" minHeight="30.0" prefHeight="30.0" prefWidth="277.0" promptText="06 30 123 4567">
          <font>
             <Font size="19.0" />
          </font>
@@ -58,7 +57,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="Password" layoutX="135.0" layoutY="497.0" minHeight="30.0" prefWidth="277.0" promptText="••••••" />
+      <PasswordField fx:id="Password" focusTraversable="false" layoutX="135.0" layoutY="497.0" minHeight="30.0" prefWidth="277.0" promptText="••••••" />
       <ImageView fitHeight="227.0" fitWidth="238.0" layoutX="451.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Image/CovidPIC.png" />
@@ -72,7 +71,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="RegisztracioNev" layoutX="135.0" layoutY="194.0" minHeight="30.0" prefHeight="32.0" prefWidth="278.0" promptText="Példa Név">
+      <TextField fx:id="RegisztracioNev" focusTraversable="false" layoutX="135.0" layoutY="194.0" minHeight="30.0" prefHeight="32.0" prefWidth="278.0" promptText="Példa Név">
          <font>
             <Font size="19.0" />
          </font>
