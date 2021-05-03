@@ -19,10 +19,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -55,66 +59,11 @@ public class RegisterPage{
     @FXML
     private Button RegisztracioVissza;
 
-    @FXML
-    private Label popUpLabel;
+    private static String uzenet;
 
-    @FXML
-    private Button closeButton;
-
-    @FXML
-    void closeButtonAction()
-    {
-        Stage stageToClose = (Stage) closeButton.getScene().getWindow();
-        stageToClose.close();
+    public static String getUzenet() {
+        return uzenet;
     }
-
-    @FXML
-    void registerPopup(String message) {
-       try {
-           Stage newStage;
-           Parent root;
-           newStage = new Stage();
-           root = FXMLLoader.load(getClass().getResource("RegisterPopUpFX.fxml"));
-           newStage.setResizable(false);
-           //newStage.initModality(Modality.APPLICATION_MODAL);
-           System.out.println(message);
-           //popUpLabel.setText("valami"); EZ VALAMIÉRT NULLPOINTEREXCEPTION-T DOB
-           Scene scene = new Scene(root);
-           newStage.setScene(scene);
-           newStage.show();
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
-
-
-    }
-
-   /* private static void registerPopup(String message) {
-        Stage newStage = new Stage();
-        DialogPane popup = new DialogPane();
-        Label szoveg = new Label(message);
-        popup.setContent(szoveg);
-        newStage.setResizable(false);
-        newStage.setTitle("Hiba!");
-        newStage.initModality(Modality.APPLICATION_MODAL);
-        Scene stageScene = new Scene(popup, 450, 100);
-        newStage.setScene(stageScene);
-        newStage.show();
-    }*/
-
-    /*private static void registerPopupNull() {
-        Stage newStage = new Stage();
-        DialogPane popup = new DialogPane();
-        Label szoveg = new Label("Minden adat kitöltése kötelező.");
-        popup.setContent(szoveg);
-        newStage.setResizable(false);
-        newStage.setTitle("Hiba!");
-        newStage.initModality(Modality.APPLICATION_MODAL);
-        Scene stageScene = new Scene(popup, 450, 100);
-        newStage.setScene(stageScene);
-        newStage.show();
-    }*/
-
 
     @FXML
     void RegisztracioVisszaEvent(ActionEvent event) {
@@ -136,9 +85,11 @@ public class RegisterPage{
         LocalDate szulIdo = BirthDate.getValue();
 
         if (isExistingEmail(email)) {
-            registerPopup("Ez az email cím már létezik!");
+            uzenet = "Ez az email cím már létezik!";
+            registerPopUp();
         } else if (isExistingTaj(taj)) {
-            registerPopup("Ez a tajszám már létezik!");
+           uzenet = "Ez a tajszám már létezik!";
+           registerPopUp();
         } else {
             Felhasznalo data = new Felhasznalo();
             data.setNev(nev);
@@ -148,13 +99,28 @@ public class RegisterPage{
             data.setJelszo(pass);
             data.setSzulido(szulIdo);
             if(!isValid(data)){
-                registerPopup("Minden adat kitöltése kötelező!");
+                uzenet = "Minden adat kitöltése kötelező!";
+                registerPopUp();
             }else{
                 cdao.saveCustomer(data);
                 App.setRoot("LoginFX");
             }
 
 
+        }
+    }
+    void registerPopUp()
+    {
+        try {
+            Stage newStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("RegisterPopUpFX.fxml"));
+            newStage.setResizable(false);
+            //popUpLabel.setText(message);
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

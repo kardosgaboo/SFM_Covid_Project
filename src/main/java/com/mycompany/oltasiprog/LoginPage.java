@@ -63,7 +63,7 @@ public class LoginPage {
             }
             else{
                 System.out.println("Sikertelen belépés");
-                loginPopup("Sikertelen belépés!");
+                loginPopup();
             }
         }catch (IOException e){
             System.err.println("Could not find MainPage" + e);
@@ -71,16 +71,14 @@ public class LoginPage {
         
     }
     @FXML
-    void loginPopup(String message) {
+    void loginPopup() {
         try {
             Stage newStage;
             Parent root;
             newStage = new Stage();
             root = FXMLLoader.load(getClass().getResource("LoginPopUpFX.fxml"));
             newStage.setResizable(false);
-            //newStage.initModality(Modality.APPLICATION_MODAL);
-            System.out.println(message);
-            //popUpLabel.setText("valami"); //EZ VALAMIÉRT NULLPOINTEREXCEPTION-T DOB
+            //popUpLabel.setText("kkkkk");
             Scene scene = new Scene(root);
             newStage.setScene(scene);
             newStage.show();
@@ -88,19 +86,6 @@ public class LoginPage {
             e.printStackTrace();
         }
     }
-
-    /*private static void loginPopup(){
-        Stage newStage = new Stage();
-        DialogPane popup = new DialogPane();
-        Label szoveg = new Label("Sikertelen belépés! Email cím vagy jelszó nem egyezik");
-        popup.setContent(szoveg);
-        newStage.setResizable(false);
-        newStage.setTitle("Hiba!");
-        newStage.initModality(Modality.APPLICATION_MODAL);
-        Scene stageScene = new Scene(popup, 450, 100);
-        newStage.setScene(stageScene);
-        newStage.show();
-    }*/
 
     private boolean checkCustomer(String e, String p){
         return customerDAO.getCustomerByEmailAndPassword(e,p).isPresent();
