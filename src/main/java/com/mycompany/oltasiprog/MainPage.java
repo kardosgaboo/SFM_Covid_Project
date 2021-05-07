@@ -14,6 +14,9 @@ import java.io.IOException;
 public class MainPage {
 
     @FXML
+    private ComboBox<String> rendeles_combobox;
+
+    @FXML
     private Button logoutButton;
 
     @FXML
@@ -45,14 +48,16 @@ public class MainPage {
             VakcinaText.setText("");
             Comb.getItems().addAll("Pfizer", "Moderna", "Astrazeneca");
             //Comb.getSelectionModel().select("Moderna");
-<<<<<<< Updated upstream
-=======
+
             rendeles_combobox.getItems().removeAll(rendeles_combobox.getItems());
             rendeles_combobox.getItems().addAll("Pfzer","Moderna","Astrazeneca","Sputnik V","Johnson&Johnson","SinoPharm");
 
             rendeles_combobox_helyszin.getItems().removeAll(rendeles_combobox_helyszin.getItems());
             rendeles_combobox_helyszin.getItems().addAll("Debrecen","Budapest","Győr","Hajdúhadház","Szeged");
->>>>>>> Stashed changes
+
+            rendeles_combobox.getItems().removeAll(rendeles_combobox.getItems());
+            rendeles_combobox.getItems().addAll("Pfzer","Moderna","Astrazeneca","Sputnik V","Johnson&Johnson","SinoPharm");
+
         }
         @FXML
         void SetText(ActionEvent event) {
@@ -116,7 +121,6 @@ public class MainPage {
                         "Vaccine AstraZeneca-t kell kapniuk a vakcinasorozat befejezéséhez.");
             }
         }
-
 
 
 }
