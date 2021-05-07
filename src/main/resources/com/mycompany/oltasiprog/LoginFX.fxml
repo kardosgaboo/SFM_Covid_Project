@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.LoginPage">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.LoginPage">
    <children>
       <Label layoutX="149.0" layoutY="61.0" prefHeight="93.0" prefWidth="421.0" text="COVID-19 Védőoltás Regisztráció" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
          <font>
@@ -21,7 +21,7 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <TextField fx:id="EmailCim" layoutX="169.0" layoutY="373.0" prefHeight="30.0" prefWidth="375.0" promptText="example@email.com" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+      <TextField fx:id="EmailCim" focusTraversable="false" layoutX="169.0" layoutY="373.0" prefHeight="30.0" prefWidth="375.0" promptText="example@email.com" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
       <Label alignment="CENTER" contentDisplay="BOTTOM" layoutX="247.0" layoutY="427.0" prefHeight="32.0" prefWidth="212.0" text="Jelszó" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
          <font>
             <Font size="21.0" />
@@ -39,6 +39,6 @@
       </ImageView>
       <Button fx:id="loginButton" alignment="CENTER" layoutX="150.0" layoutY="570.0" mnemonicParsing="false" onAction="#LoginButtonEvent" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: #d1d7ff;" text="Belépés" />
       <Button fx:id="RegisterButton" alignment="CENTER" layoutX="470.0" layoutY="570.0" mnemonicParsing="false" onAction="#RegisterButtonEvent" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: #d1d7ff;" text="Regisztráció" />
-      <PasswordField fx:id="Jelszo" layoutX="153.0" layoutY="479.0" prefHeight="26.0" prefWidth="420.0" promptText="••••••••" />
+      <PasswordField fx:id="Jelszo" focusTraversable="false" layoutX="153.0" layoutY="479.0" prefHeight="26.0" prefWidth="420.0" promptText="••••••••" />
    </children>
 </AnchorPane>
