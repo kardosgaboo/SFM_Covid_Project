@@ -33,10 +33,14 @@ public class MainPage {
 
         @FXML
         private ComboBox Comb;
+        @FXML
+        private ComboBox rendeles_combobox_helyszin;
         
         @FXML
         private Label VakcinaText;
 
+        @FXML
+        private Label elerheto_mennyiseg_label;
 
         @FXML
         public void initialize() {
@@ -44,8 +48,16 @@ public class MainPage {
             VakcinaText.setText("");
             Comb.getItems().addAll("Pfizer", "Moderna", "Astrazeneca");
             //Comb.getSelectionModel().select("Moderna");
+
             rendeles_combobox.getItems().removeAll(rendeles_combobox.getItems());
             rendeles_combobox.getItems().addAll("Pfzer","Moderna","Astrazeneca","Sputnik V","Johnson&Johnson","SinoPharm");
+
+            rendeles_combobox_helyszin.getItems().removeAll(rendeles_combobox_helyszin.getItems());
+            rendeles_combobox_helyszin.getItems().addAll("Debrecen","Budapest","Győr","Hajdúhadház","Szeged");
+
+            rendeles_combobox.getItems().removeAll(rendeles_combobox.getItems());
+            rendeles_combobox.getItems().addAll("Pfzer","Moderna","Astrazeneca","Sputnik V","Johnson&Johnson","SinoPharm");
+
         }
         @FXML
         void SetText(ActionEvent event) {

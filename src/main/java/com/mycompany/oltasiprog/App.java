@@ -30,6 +30,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
+        scene.getStylesheets().add("custom_css.css");
     }
 
     static void setRoot(String fxml) throws IOException {
