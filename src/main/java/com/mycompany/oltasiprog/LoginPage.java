@@ -78,6 +78,7 @@ public class LoginPage {
             newStage = new Stage();
             root = FXMLLoader.load(getClass().getResource("LoginPopUpFX.fxml"));
             newStage.setResizable(false);
+            newStage.initModality(Modality.APPLICATION_MODAL);
             //popUpLabel.setText("kkkkk");
             Scene scene = new Scene(root);
             newStage.setScene(scene);
@@ -94,6 +95,7 @@ public class LoginPage {
     @FXML
     void RegisterButtonEvent(ActionEvent event) throws IOException {
             App.setRoot("RegisterFX");
+
     }
 
 }

@@ -1,0 +1,31 @@
+2021-05-08 18:57:19 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM VAKCINA INSERT INTO[*] VAKCINA(ID,DESCRIPTION,NAME) VALUES(1,'Ez a Pfizer vakcina','Pfizer'),(2,'Ez a Moderna vakcina','Moderna')"; SQL statement:
+SELECT * FROM VAKCINA INSERT INTO VAKCINA(ID,DESCRIPTION,NAME) VALUES(1,'Ez a Pfizer vakcina','Pfizer'),(2,'Ez a Moderna vakcina','Moderna') [42000-200]
+2021-05-08 21:14:05 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION VARCHAR(255)": "STRINGDECODE('A Janssen vakcina vektor alap\u00fa olt\u00f3anyag, vagyis egy \u00e1rtalmatlan, szaporod\u00e1sra k\u00e9ptelen h... (314)"; SQL statement:
+insert into Vakcina (Description, Name, id) values (?, ?, ?) [22001-200]
+2021-05-08 21:26:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION VARCHAR(255)": "STRINGDECODE('A Janssen vakcina vektor alap\u00fa olt\u00f3anyag, vagyis egy \u00e1rtalmatlan, szaporod\u00e1sra k\u00e9ptelen h... (314)"; SQL statement:
+insert into Vakcina (Description, Name, id) values (?, ?, ?) [22001-200]
+2021-05-08 21:27:08 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION VARCHAR(255)": "STRINGDECODE('A Janssen vakcina vektor alap\u00fa olt\u00f3anyag, vagyis egy \u00e1rtalmatlan, szaporod\u00e1sra k\u00e9ptelen h... (314)"; SQL statement:
+insert into Vakcina (Description, Name, id) values (?, ?, ?) [22001-200]
+2021-05-08 21:28:11 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Cannot drop "VAKCINA" because "FKMUG2QJLLKVU8UMEDMTXO15YIQ, FKHC7F19N3EV72WH8K3D1U9O47Y" depends on it; SQL statement:
+DROP TABLE VAKCINA [90107-200]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:576)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.command.ddl.DropTable.prepareDrop(DropTable.java:98)
+	at org.h2.command.ddl.DropTable.update(DropTable.java:124)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:198)
+	at org.h2.command.Command.executeUpdate(Command.java:251)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:228)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:201)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1459)
+	at org.h2.server.web.WebApp.query(WebApp.java:1116)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1078)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1065)
+	at org.h2.server.web.WebThread.process(WebThread.java:178)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Thread.java:748)
