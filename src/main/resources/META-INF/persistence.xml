@@ -6,6 +6,7 @@
     <class>com.mycompany.oltasiprog.oltopont.Oltopont</class>
     <class>com.mycompany.oltasiprog.vakcina.Vakcina</class>
     <class>com.mycompany.oltasiprog.raktarkeszlet.Raktarkeszlet</class>
+    <class>com.mycompany.oltasiprog.rendeles.Rendeles</class>
 
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>

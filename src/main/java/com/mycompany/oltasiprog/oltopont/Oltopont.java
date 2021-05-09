@@ -37,6 +37,13 @@ public class Oltopont {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Oltopont{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

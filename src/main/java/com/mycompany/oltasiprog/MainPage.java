@@ -1,5 +1,18 @@
 package com.mycompany.oltasiprog;
 
+import com.mycompany.oltasiprog.customer.Felhasznalo;
+import com.mycompany.oltasiprog.oltopont.Oltopont;
+import com.mycompany.oltasiprog.oltopont.OltopontDAO;
+import com.mycompany.oltasiprog.oltopont.OltopontDAOimpl;
+import com.mycompany.oltasiprog.raktarkeszlet.Raktarkeszlet;
+import com.mycompany.oltasiprog.raktarkeszlet.RaktarkeszletDAO;
+import com.mycompany.oltasiprog.raktarkeszlet.RaktarkeszletDAOimpl;
+import com.mycompany.oltasiprog.rendeles.Rendeles;
+import com.mycompany.oltasiprog.rendeles.RendelesDAO;
+import com.mycompany.oltasiprog.rendeles.RendelesDAOimpl;
+import com.mycompany.oltasiprog.vakcina.Vakcina;
+import com.mycompany.oltasiprog.vakcina.VakcinaDAO;
+import com.mycompany.oltasiprog.vakcina.VakcinaDAOimpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +21,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MainPage {
 
@@ -33,7 +50,7 @@ public class MainPage {
     @FXML
     private ComboBox Comb;
     @FXML
-    private ComboBox rendeles_combobox_helyszin;
+    private ComboBox<String> rendeles_combobox_helyszin;
 
     @FXML
     private Label VakcinaText;
@@ -42,23 +59,102 @@ public class MainPage {
     private Label elerheto_mennyiseg_label;
 
     @FXML
+    private Label rendelesNev;
+
+    @FXML
+    private Label rendelesEmail;
+
+    @FXML
+    private Label rendelesTAJ;
+
+    @FXML
+    private Label rendelesSzulDat;
+
+    @FXML
+    private Label rendelesRendelesInfo;
+
+    @FXML
+    private Label darabLabel;
+
+    @FXML
+    private Button rendeles_tovabb_button;
+
+    @FXML
+    private Label rendelesTeszt;
+
+
+
+    public static Felhasznalo felhasznalo;
+
+    private final OltopontDAO oltopontDAO = new OltopontDAOimpl();
+    private final VakcinaDAO vakcinaDAO = new VakcinaDAOimpl();
+    private final RaktarkeszletDAO raktarkeszletDAO = new RaktarkeszletDAOimpl();
+    private final RendelesDAO rendelesDAO = new RendelesDAOimpl();
+
+    @FXML
     public void initialize() {
 
         Comb.getItems().removeAll(Comb.getItems());
         VakcinaText.setText("");
-        Comb.getItems().addAll("Pfizer", "Moderna", "Astrazeneca");
-        //Comb.getSelectionModel().select("Moderna");
+        Comb.getItems().addAll(vakcinaDAO.getVakcina().stream().map(Vakcina::getName).collect(Collectors.toList()));
 
         rendeles_combobox.getItems().removeAll(rendeles_combobox.getItems());
-        rendeles_combobox.getItems().addAll("Pfzer", "Moderna", "Astrazeneca", "Sputnik V", "Johnson&Johnson", "SinoPharm");
+        rendeles_combobox.getItems().addAll(vakcinaDAO.getVakcina().stream().map(Vakcina::getName).collect(Collectors.toList()));
 
         rendeles_combobox_helyszin.getItems().removeAll(rendeles_combobox_helyszin.getItems());
-        rendeles_combobox_helyszin.getItems().addAll("Debrecen", "Budapest", "Győr", "Hajdúhadház", "Szeged");
-
-        rendeles_combobox.getItems().removeAll(rendeles_combobox.getItems());
-        rendeles_combobox.getItems().addAll("Pfzer", "Moderna", "Astrazeneca", "Sputnik V", "Johnson&Johnson", "SinoPharm");
-
+        rendeles_combobox_helyszin.getItems().addAll(oltopontDAO.getOltopontok().stream().map(Oltopont::getName).collect(Collectors.toList()));
+        darabLabel.setText("");
+        rendeles_tovabb_button.setDisable(true);
     }
+
+    @FXML
+    void RendelesVakcinaDropdown(ActionEvent event) {
+        String vakcina = rendeles_combobox.getValue();
+        String helyszin = rendeles_combobox_helyszin.getValue();
+        if(vakcina != null && helyszin != null){
+            List<Raktarkeszlet> raktarkeszletList = raktarkeszletDAO.getRaktarkeszlet();
+            Optional<Raktarkeszlet> raktarkeszlet = raktarkeszletList.stream()
+                    .filter(d->d.getVakcina().getName().equals(vakcina) && d.getOltopont().getName().equals(helyszin))
+                    .findFirst();
+            if(raktarkeszlet.isPresent()){
+                Long aktualisDarabszam = raktarkeszlet.get().getQuantity();
+                darabLabel.setText(aktualisDarabszam.toString());
+                rendeles_tovabb_button.setDisable(aktualisDarabszam == 0L);
+            }
+        }
+    }
+
+    @FXML
+    void RendelesHelyszinDropdown(ActionEvent event) {
+        RendelesVakcinaDropdown(event);
+    }
+
+    @FXML
+    void Rendeles_tovabb_action(ActionEvent event) {
+        Optional<Vakcina> optionalVakcina = vakcinaDAO.getVakcina().stream()
+                .filter(v->v.getName().equals(rendeles_combobox.getValue())).findFirst();
+        Optional<Oltopont> optionalOltopont = oltopontDAO.getOltopontok().stream()
+                .filter(o->o.getName().equals(rendeles_combobox_helyszin.getValue())).findFirst();
+
+        if(optionalVakcina.isPresent() && optionalOltopont.isPresent()){
+            Optional<Raktarkeszlet> optionalRaktarkeszlet = raktarkeszletDAO.getRaktarkeszlet().stream()
+                    .filter(r->r.getOltopont().getId().equals(optionalOltopont.get().getId())
+                    && r.getVakcina().getId().equals(optionalVakcina.get().getId())).findFirst();
+            if(optionalRaktarkeszlet.isPresent()) {
+                Raktarkeszlet raktarkeszlet = optionalRaktarkeszlet.get();
+                if(raktarkeszlet.getQuantity() > 0L) {
+                    Rendeles egyrendeles = new Rendeles(felhasznalo, optionalOltopont.get(),
+                            optionalVakcina.get(), LocalDateTime.now());
+                    rendelesDAO.saveRendeles(egyrendeles);
+                    rendelesTeszt.setText(egyrendeles.toString());
+                    raktarkeszlet.setQuantity(raktarkeszlet.getQuantity()-1);
+                    raktarkeszletDAO.updateRaktarkeszlet(raktarkeszlet);
+                    darabLabel.setText(raktarkeszlet.getQuantity().toString());
+                }else{rendelesTeszt.setText("Raktárkészlet < 0");}
+            }else{rendelesTeszt.setText("Nem létezik a raktárkészlet");}
+        }else{rendelesTeszt.setText("Vakcina vagy oltopont nem létezik");}
+    }
+
 
     @FXML
     void SetText(ActionEvent event) {

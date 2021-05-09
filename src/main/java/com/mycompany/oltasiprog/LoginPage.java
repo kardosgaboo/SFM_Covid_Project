@@ -1,9 +1,11 @@
 package com.mycompany.oltasiprog;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import com.mycompany.oltasiprog.customer.CustomerDAO;
 import com.mycompany.oltasiprog.customer.CustomerDAOimpl;
+import com.mycompany.oltasiprog.customer.Felhasznalo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,11 +56,12 @@ public class LoginPage {
 
     @FXML
     void LoginButtonEvent(ActionEvent event) {
-        //String TajSzam = TAJszam.getText(); kikerült mert redundáns azonosítás szempontjából
         String Email = EmailCim.getText();
         String Password = Jelszo.getText();
         try {
-            if (checkCustomer(Email, Password)) {
+            Optional<Felhasznalo> optionalFelhasznalo = checkCustomer(Email,Password);
+            if (optionalFelhasznalo.isPresent()) {
+                MainPage.felhasznalo = optionalFelhasznalo.get();
                 App.setRoot("MainPage");
             }
             else{
@@ -88,8 +91,8 @@ public class LoginPage {
         }
     }
 
-    private boolean checkCustomer(String e, String p){
-        return customerDAO.getCustomerByEmailAndPassword(e,p).isPresent();
+    private Optional<Felhasznalo> checkCustomer(String e, String p){
+        return customerDAO.getCustomerByEmailAndPassword(e,p);
     }
 
     @FXML

@@ -20,6 +20,14 @@ public class Vakcina {
         this.name = name;
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Vakcina{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
     public Vakcina(){}
 
     public Long getId() {
