@@ -83,9 +83,8 @@ public class Felhasznalo {
 
     @Override
     public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + nev + " " + taj + " " + email +" " + jelszo + '\'' +
+        return "Felhasznalo{" +
+                "nev='" + nev + '\'' +
                 '}';
     }
 }
