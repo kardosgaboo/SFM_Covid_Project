@@ -115,7 +115,6 @@ public class RegisterPage{
             Stage newStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("RegisterPopUpFX.fxml"));
             newStage.setResizable(false);
-            //popUpLabel.setText(message);
             Scene scene = new Scene(root);
             newStage.setScene(scene);
             newStage.show();

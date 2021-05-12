@@ -6,13 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.h2.tools.Server;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 /**
  * JavaFX App
@@ -25,7 +20,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("LoginFx"), 720, 720);
+        scene = new Scene(loadFXML("LoginFx"), 740, 740);
         //scene = new Scene(loadFXML("MainPage"), 720, 720);//Lehet választani, hogy tesztnél ne kelljen mindig belépni.
         stage.setScene(scene);
         stage.show();

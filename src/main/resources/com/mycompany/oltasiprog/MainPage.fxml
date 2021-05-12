@@ -225,6 +225,7 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
+                  <Button fx:id="OrderCancelButton" layoutX="48.0" layoutY="553.0" mnemonicParsing="false" onAction="#OrderCancelButtonAction" text="Rendeles törlése" />
                </children>
             </AnchorPane>
         </content>

@@ -15,11 +15,19 @@ import com.mycompany.oltasiprog.vakcina.VakcinaDAO;
 import com.mycompany.oltasiprog.vakcina.VakcinaDAOimpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -82,7 +90,51 @@ public class MainPage {
     @FXML
     private Label rendelesTeszt;
 
+    @FXML
+    private Button OrderCancelButton;
 
+    @FXML
+    private Button OrderYesButton;
+
+    @FXML
+    private Button OrderNoButton;
+    @FXML
+    private Label popUpLabel;
+
+    @FXML
+    void OrderNoButtonAction(ActionEvent event) {
+        Stage stageToClose = (Stage) OrderNoButton.getScene().getWindow();
+        stageToClose.close();
+    }
+
+    @FXML
+    void OrderYesButtonAction(ActionEvent event) {
+        handleOrderCancel();
+        Stage stageToClose = (Stage) OrderYesButton.getScene().getWindow();
+        stageToClose.close();
+
+    }
+
+    @FXML
+    void OrderCancelButtonAction(ActionEvent event) {
+        orderCancelPopup();
+    }
+
+    public void handleOrderCancel(){
+        List<Rendeles> rendelesList = rendelesDAO.getRendeles().stream()
+                .filter(r->r.getFelhasznalo().getId().equals(felhasznalo.getId())).collect(Collectors.toList());
+        rendelesList.forEach(r->{
+            Long vakcinaId = r.getVakcina().getId();
+            Long oltopontId = r.getOltopont().getId();
+            Raktarkeszlet raktarkeszlet = raktarkeszletDAO.getRaktarkeszlet()
+                    .stream().filter(e->e.getVakcina().getId().equals(vakcinaId)
+                            && e.getOltopont().getId().equals(oltopontId)).findFirst().get();
+            raktarkeszlet.increaseQuantity();
+            raktarkeszletDAO.updateRaktarkeszlet(raktarkeszlet);
+            rendelesDAO.deleteRendeles(r);
+        });
+
+    }
 
     public static Felhasznalo felhasznalo;
 
@@ -91,20 +143,25 @@ public class MainPage {
     private final RaktarkeszletDAO raktarkeszletDAO = new RaktarkeszletDAOimpl();
     private final RendelesDAO rendelesDAO = new RendelesDAOimpl();
 
+    public static boolean isMainPageInitialized = false;
+
     @FXML
     public void initialize() {
+        if(isMainPageInitialized==false) {
+            Comb.getItems().removeAll(Comb.getItems());
+            VakcinaText.setText("");
+            Comb.getItems().addAll(vakcinaDAO.getVakcina().stream().map(Vakcina::getName).collect(Collectors.toList()));
 
-        Comb.getItems().removeAll(Comb.getItems());
-        VakcinaText.setText("");
-        Comb.getItems().addAll(vakcinaDAO.getVakcina().stream().map(Vakcina::getName).collect(Collectors.toList()));
+            rendeles_combobox.getItems().removeAll(rendeles_combobox.getItems());
+            rendeles_combobox.getItems().addAll(vakcinaDAO.getVakcina().stream().map(Vakcina::getName).collect(Collectors.toList()));
 
-        rendeles_combobox.getItems().removeAll(rendeles_combobox.getItems());
-        rendeles_combobox.getItems().addAll(vakcinaDAO.getVakcina().stream().map(Vakcina::getName).collect(Collectors.toList()));
-
-        rendeles_combobox_helyszin.getItems().removeAll(rendeles_combobox_helyszin.getItems());
-        rendeles_combobox_helyszin.getItems().addAll(oltopontDAO.getOltopontok().stream().map(Oltopont::getName).collect(Collectors.toList()));
-        darabLabel.setText("");
-        rendeles_tovabb_button.setDisable(true);
+            rendeles_combobox_helyszin.getItems().removeAll(rendeles_combobox_helyszin.getItems());
+            rendeles_combobox_helyszin.getItems().addAll(oltopontDAO.getOltopontok().stream().map(Oltopont::getName).collect(Collectors.toList()));
+            darabLabel.setText("");
+            rendeles_tovabb_button.setDisable(true);
+            //OrderCancelButton.setDisable(true);
+            isMainPageInitialized=true;
+        }
     }
 
     @FXML
@@ -122,6 +179,25 @@ public class MainPage {
                 rendeles_tovabb_button.setDisable(aktualisDarabszam == 0L);
             }
         }
+    }
+
+    @FXML
+    void orderCancelPopup() {
+
+        try {
+            Stage newStage;
+            Parent root;
+            newStage = new Stage();
+            root = FXMLLoader.load(getClass().getResource("OrderCancelPopUp.fxml"));
+            newStage.setResizable(false);
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -146,8 +222,8 @@ public class MainPage {
                     Rendeles egyrendeles = new Rendeles(felhasznalo, optionalOltopont.get(),
                             optionalVakcina.get(), LocalDateTime.now());
                     rendelesDAO.saveRendeles(egyrendeles);
-                    rendelesTeszt.setText(egyrendeles.toString());
-                    raktarkeszlet.setQuantity(raktarkeszlet.getQuantity()-1);
+                    OrderCancelButton.setDisable(false);
+                    raktarkeszlet.decreaseQuantity();
                     raktarkeszletDAO.updateRaktarkeszlet(raktarkeszlet);
                     darabLabel.setText(raktarkeszlet.getQuantity().toString());
                 }else{rendelesTeszt.setText("Raktárkészlet < 0");}
@@ -158,8 +234,10 @@ public class MainPage {
 
     @FXML
     void SetText(ActionEvent event) {
+        //File file = new File("/Image/astrazenecalogo.png");
+        //Image image = new Image(file.toURI().toString());
         if (Comb.getValue().equals("Pfizer")) {
-            VakcinaText.setText("Comirnaty vakcina összetétele\n" +
+            VakcinaText.setText("Comirnaty vakcina összetét ele\n" +
                     "\tA vakcina a vírus molekuláris szerkezetén alapuló technológia segítségével készült.\n" +
                     "Az oltóanyag mRNS-alapú, egy lipid nanorészecskébe csomagolt RNS molekulát (mRNS) \ntartalmaz.\n" +
                     "Hogyan véd a vakcina?\n" +
@@ -173,8 +251,9 @@ public class MainPage {
                     "Meddig tart a védettség?\n" +
                     "\tA vakcina által biztosított védelem ideje még nem ismert, meghatározása folyamatban van \na jelenleg" +
                     "zajló klinikai vizsgálatok során.");
-            //vakcinainfoKep.setImage(new Image("\\astrazenecalogo.png"));
+                    //vakcinainfoKep.setImage(image);
         } else if (Comb.getValue().equals("Moderna")) {
+
             VakcinaText.setText("COVID 19 Moderna Vakcina vakcina összetétele\n" +
                     "\tA vakcina a vírus molekuláris szerkezetén alapuló technológia segítségével készült. Az \n" +
                     "oltóanyag mRNS-alapú, egy lipid nanorészecskébe csomagolt RNS molekulát (mRNS) \n" +
