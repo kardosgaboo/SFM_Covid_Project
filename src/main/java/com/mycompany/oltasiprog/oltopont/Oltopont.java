@@ -42,6 +42,7 @@ public class Oltopont {
         return "Oltopont{" +
                 "name='" + name + '\'' +
                 '}';
+
     }
 
     public String getName() {
