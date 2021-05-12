@@ -39,7 +39,10 @@ public class Oltopont {
 
     @Override
     public String toString() {
-        return name;
+        return "Oltopont{" +
+                "name='" + name + '\'' +
+                '}';
+
     }
 
     public String getName() {

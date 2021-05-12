@@ -3,6 +3,11 @@
   <persistence-unit name="br.com.fredericci.pu">
     <description>Hibernate EntityManager Demo</description>
     <class>com.mycompany.oltasiprog.customer.Felhasznalo</class>
+    <class>com.mycompany.oltasiprog.oltopont.Oltopont</class>
+    <class>com.mycompany.oltasiprog.vakcina.Vakcina</class>
+    <class>com.mycompany.oltasiprog.raktarkeszlet.Raktarkeszlet</class>
+    <class>com.mycompany.oltasiprog.rendeles.Rendeles</class>
+
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
