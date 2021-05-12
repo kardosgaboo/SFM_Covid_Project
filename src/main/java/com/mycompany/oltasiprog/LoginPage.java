@@ -47,6 +47,9 @@ public class LoginPage {
     @FXML
     private Label popUpLabel;
 
+
+
+
     @FXML
     void closeButtonAction()
     {
@@ -82,7 +85,6 @@ public class LoginPage {
             root = FXMLLoader.load(getClass().getResource("LoginPopUpFX.fxml"));
             newStage.setResizable(false);
             newStage.initModality(Modality.APPLICATION_MODAL);
-            //popUpLabel.setText("kkkkk");
             Scene scene = new Scene(root);
             newStage.setScene(scene);
             newStage.show();
@@ -90,6 +92,8 @@ public class LoginPage {
             e.printStackTrace();
         }
     }
+
+
 
     private Optional<Felhasznalo> checkCustomer(String e, String p){
         return customerDAO.getCustomerByEmailAndPassword(e,p);

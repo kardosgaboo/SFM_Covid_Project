@@ -28,6 +28,38 @@ public class Rendeles {
     @Column(name="rendeles_datum")
     private LocalDateTime rendelesDatum;
 
+    public Felhasznalo getFelhasznalo() {
+        return felhasznalo;
+    }
+
+    public void setFelhasznalo(Felhasznalo felhasznalo) {
+        this.felhasznalo = felhasznalo;
+    }
+
+    public Oltopont getOltopont() {
+        return oltopont;
+    }
+
+    public void setOltopont(Oltopont oltopont) {
+        this.oltopont = oltopont;
+    }
+
+    public Vakcina getVakcina() {
+        return vakcina;
+    }
+
+    public void setVakcina(Vakcina vakcina) {
+        this.vakcina = vakcina;
+    }
+
+    public LocalDateTime getRendelesDatum() {
+        return rendelesDatum;
+    }
+
+    public void setRendelesDatum(LocalDateTime rendelesDatum) {
+        this.rendelesDatum = rendelesDatum;
+    }
+
     public Rendeles(Felhasznalo felhasznalo, Oltopont oltopont, Vakcina vakcina, LocalDateTime rendelesDatum) {
         this.felhasznalo = felhasznalo;
         this.oltopont = oltopont;

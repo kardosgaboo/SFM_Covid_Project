@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="150.0" prefWidth="450.0" style="-fx-background-color: #fff9d1;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.LoginPage">
+   <children>
+      <Label fx:id="popUpLabel" layoutX="131.0" layoutY="60.0" text="Sikertelen belépés!" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font></Label>
+      <Button fx:id="closeButton" layoutX="349.0" layoutY="86.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="35.0" prefWidth="60.0" style="-fx-background-color: #d1d7ff;" text="Bezár" />
+      <Line endX="20.0" endY="20.0" layoutX="70.0" layoutY="70.0" startX="-20.0" startY="-20.0" stroke="#da0404" strokeWidth="5.0" />
+      <Line endX="20.0" endY="20.0" layoutX="70.0" layoutY="70.0" rotate="90.0" startX="-20.0" startY="-20.0" stroke="#da0404" strokeWidth="5.0" />
+   </children>
+</AnchorPane>
