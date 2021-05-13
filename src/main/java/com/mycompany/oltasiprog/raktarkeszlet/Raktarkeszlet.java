@@ -28,14 +28,6 @@ public class Raktarkeszlet implements Serializable {
         return id;
     }
 
-    public void increaseQuantity(){
-        ++this.quantity;
-    }
-
-    public void decreaseQuantity(){
-        --this.quantity;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }

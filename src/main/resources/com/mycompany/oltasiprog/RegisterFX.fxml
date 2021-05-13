@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.RegisterPage">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.RegisterPage">
    <children>
-      <Label contentDisplay="CENTER" layoutX="170.0" layoutY="36.0" prefHeight="55.0" prefWidth="379.0" text="COVID-19 Regisztráció" textAlignment="CENTER">
+      <Label contentDisplay="CENTER" layoutX="8.0" layoutY="36.0" prefHeight="55.0" prefWidth="701.0" text="Felhasználó regisztráció COVID-19 védőltásra" textAlignment="CENTER">
          <font>
             <Font size="34.0" />
          </font>
