@@ -71,11 +71,7 @@ public class Rendeles {
 
     @Override
     public String toString() {
-        return "Rendeles{" +
-                "felhasznalo=" + felhasznalo +
-                ", oltopont=" + oltopont +
-                ", vakcina=" + vakcina +
-                ", rendelesDatum=" + rendelesDatum +
-                '}';
+        return "Oltópont: " + oltopont.getName() +"\nCím: "+oltopont.getAddress()+"\nVakcina: " + vakcina.getName()
+                + "\nRendelés dátuma: " + rendelesDatum.getYear()+"."+rendelesDatum.getMonth()+"."+rendelesDatum.getDayOfMonth()+".";
     }
 }

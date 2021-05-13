@@ -22,18 +22,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javafx.beans.value.ChangeListener;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import java.net.URL;
@@ -51,6 +48,8 @@ public class MainPage implements Initializable {
 
     @FXML
     private Button logoutButton;
+
+
 
     @FXML
     void LogoutButtonEvent(ActionEvent event) {
@@ -98,7 +97,7 @@ public class MainPage implements Initializable {
     private Button rendeles_tovabb_button;
 
     @FXML
-    private Label rendelesTeszt;
+    private Text rendelesTeszt1;
 
     @FXML
     private Button OrderCancelButton;
@@ -114,29 +113,119 @@ public class MainPage implements Initializable {
     @FXML
     private ListView<Oltopont> Oltopont_neve;
 
+   @FXML
+   private TextArea oltopont_cimek;
+
     @FXML
-    private Label oltopont_cim;
+    private AnchorPane sikeresRendelesPopUp;
+
+    @FXML
+    private Label SikeresRendelesPopUpLabel;
+
+    @FXML
+    private AnchorPane sikeresCancelOrderPop;
+
+    @FXML
+    private Label popUpLabelCancel;
+
+    @FXML
+    private TabPane mainTabPane;
+
+    @FXML
+    void RendelesVakcinaDropdown(ActionEvent event) {
+        String vakcina = rendeles_combobox.getValue();
+        String helyszin = rendeles_combobox_helyszin.getValue();
+        if(vakcina != null && helyszin != null){
+            List<Raktarkeszlet> raktarkeszletList = raktarkeszletDAO.getRaktarkeszlet();
+            Optional<Raktarkeszlet> raktarkeszlet = raktarkeszletList.stream()
+                    .filter(d->d.getVakcina().getName().equals(vakcina) && d.getOltopont().getName().equals(helyszin))
+                    .findFirst();
+            if(raktarkeszlet.isPresent()){
+                Long aktualisDarabszam = raktarkeszlet.get().getQuantity();
+                //darabLabel.setText(aktualisDarabszam.toString());
+                if (rendelesDAO.getRendeles().stream().noneMatch(r->r.getFelhasznalo().getId().equals(felhasznalo.getId()))) {
+                    rendeles_tovabb_button.setDisable(aktualisDarabszam == 0L);
+                }
+            }
+        }
+    }
+
+    @FXML
+    void RendelesHelyszinDropdown(ActionEvent event) {
+        RendelesVakcinaDropdown(event);
+    }
+
+    @FXML
+    void Rendeles_tovabb_action(ActionEvent event) {
+        Optional<Vakcina> optionalVakcina = vakcinaDAO.getVakcina().stream()
+                .filter(v->v.getName().equals(rendeles_combobox.getValue())).findFirst();
+        Optional<Oltopont> optionalOltopont = oltopontDAO.getOltopontok().stream()
+                .filter(o->o.getName().equals(rendeles_combobox_helyszin.getValue())).findFirst();
+
+        if(optionalVakcina.isPresent() && optionalOltopont.isPresent()){
+            Optional<Raktarkeszlet> optionalRaktarkeszlet = raktarkeszletDAO.getRaktarkeszlet().stream()
+                    .filter(r->r.getOltopont().getId().equals(optionalOltopont.get().getId())
+                            && r.getVakcina().getId().equals(optionalVakcina.get().getId())).findFirst();
+            if(optionalRaktarkeszlet.isPresent()) {
+                Raktarkeszlet raktarkeszlet = optionalRaktarkeszlet.get();
+                if(raktarkeszlet.getQuantity() > 0L) {
+                    Rendeles egyrendeles = new Rendeles(felhasznalo, optionalOltopont.get(),
+                            optionalVakcina.get(), LocalDateTime.now());
+                    rendelesDAO.saveRendeles(egyrendeles);
+                    OrderCancelButton.setDisable(false);
+                    raktarkeszlet.setQuantity(raktarkeszlet.getQuantity()-1);
+                    raktarkeszletDAO.updateRaktarkeszlet(raktarkeszlet);
+                    //darabLabel.setText(raktarkeszlet.getQuantity().toString());
+                    rendelesRendelesInfo.setText(egyrendeles.toString());
+                    sikeresRendelesPop();
+                }else{rendelesTeszt1.setText("Raktárkészlet < 0");}
+            }else{rendelesTeszt1.setText("Nem létezik a raktárkészlet");}
+        }else{rendelesTeszt1.setText("Vakcina vagy oltopont nem létezik");}
+    }
+
+    private void sikeresRendelesPop() {
+        try {
+            Stage newStage;
+            Parent root;
+            newStage = new Stage();
+            root = FXMLLoader.load(getClass().getResource("teszt2.fxml"));
+            newStage.setResizable(false);
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     List<Oltopont> oltopontok;
-    @FXML
-    void OrderNoButtonAction(ActionEvent event) {
-        Stage stageToClose = (Stage) OrderNoButton.getScene().getWindow();
-        stageToClose.close();
-    }
+
+    public static boolean isMainPageInitialized = false;
+
+    public static Felhasznalo felhasznalo;
+
+    private final OltopontDAO oltopontDAO = new OltopontDAOimpl();
+    private final VakcinaDAO vakcinaDAO = new VakcinaDAOimpl();
+    private final RaktarkeszletDAO raktarkeszletDAO = new RaktarkeszletDAOimpl();
+    private final RendelesDAO rendelesDAO = new RendelesDAOimpl();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        oltopontok = oltopontDAO.getOltopontok();
-        ObservableList<Oltopont> list = FXCollections.observableArrayList();
 
-        for (Oltopont cime:
-                oltopontok) {
-            list.add(cime);
-        }
-
-        Oltopont_neve.setItems(list);
 
         if(isMainPageInitialized==false) {
+
+            oltopontok = oltopontDAO.getOltopontok();
+            ObservableList<Oltopont> list = FXCollections.observableArrayList();
+
+            for (Oltopont cime:
+                    oltopontok) {
+                list.add(cime);
+            }
+
+            Oltopont_neve.setItems(list);
             Comb.getItems().removeAll(Comb.getItems());
             VakcinaText.setText("");
             Comb.getItems().addAll(vakcinaDAO.getVakcina().stream().map(Vakcina::getName).collect(Collectors.toList()));
@@ -146,11 +235,35 @@ public class MainPage implements Initializable {
 
             rendeles_combobox_helyszin.getItems().removeAll(rendeles_combobox_helyszin.getItems());
             rendeles_combobox_helyszin.getItems().addAll(oltopontDAO.getOltopontok().stream().map(Oltopont::getName).collect(Collectors.toList()));
-            darabLabel.setText("");
+            //darabLabel.setText("");
             rendeles_tovabb_button.setDisable(true);
-            //OrderCancelButton.setDisable(true);
             oltopontok();
+            rendelesNev.setText("");
+            rendelesTAJ.setText("");
+            rendelesEmail.setText("");
+            rendelesSzulDat.setText("");
+            rendelesRendelesInfo.setText("");
+
             isMainPageInitialized=true;
+            mainTabPane.getSelectionModel().selectedItemProperty().addListener(
+                    new ChangeListener<Tab>() {
+                        @Override
+                        public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+
+                            if (rendelesDAO.getRendeles().stream().anyMatch(r->r.getFelhasznalo().getId().equals(felhasznalo.getId()))) {
+                                rendeles_tovabb_button.setDisable(true);
+                            }
+                            rendeles_combobox.getSelectionModel().clearSelection();
+                            rendeles_combobox_helyszin.getSelectionModel().clearSelection();
+                            rendelesTeszt1.setText("");
+                            rendelesNev.setText(felhasznalo.getNev());
+                            rendelesTAJ.setText(felhasznalo.getTaj());
+                            rendelesEmail.setText(felhasznalo.getEmail());
+                            rendelesSzulDat.setText(felhasznalo.getSzulido().toString());
+
+                        }
+                    }
+            );
         }
 
     }
@@ -161,21 +274,35 @@ public class MainPage implements Initializable {
             //System.out.println(Oltopont_neve.getSelectionModel().getSelectedItems().toString());
             //System.out.println(oltopontok.get(i).getName());
             if(("["+oltopontok.get(i).getName()+"]").equals(Oltopont_neve.getSelectionModel().getSelectedItems().toString()))
-                oltopont_cim.setText(oltopontok.get(i).getAddress());
+                oltopont_cimek.setText(oltopontok.get(i).getAddress());
 
         }
 
     }
-
     @FXML
     void OrderYesButtonAction(ActionEvent event) {
         handleOrderCancel();
         Stage stageToClose = (Stage) OrderYesButton.getScene().getWindow();
         stageToClose.close();
+        sikeresCancelOrderPop();
 
     }
 
-
+    private void sikeresCancelOrderPop() {
+        try {
+            Stage newStage;
+            Parent root;
+            newStage = new Stage();
+            root = FXMLLoader.load(getClass().getResource("teszt.fxml"));
+            newStage.setResizable(false);
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void OrderCancelButtonAction(ActionEvent event) {
@@ -191,21 +318,18 @@ public class MainPage implements Initializable {
             Raktarkeszlet raktarkeszlet = raktarkeszletDAO.getRaktarkeszlet()
                     .stream().filter(e->e.getVakcina().getId().equals(vakcinaId)
                             && e.getOltopont().getId().equals(oltopontId)).findFirst().get();
-            raktarkeszlet.increaseQuantity();
+            raktarkeszlet.setQuantity(raktarkeszlet.getQuantity()+1);
             raktarkeszletDAO.updateRaktarkeszlet(raktarkeszlet);
             rendelesDAO.deleteRendeles(r);
+
+
         });
 
     }
 
-    public static Felhasznalo felhasznalo;
 
-    private final OltopontDAO oltopontDAO = new OltopontDAOimpl();
-    private final VakcinaDAO vakcinaDAO = new VakcinaDAOimpl();
-    private final RaktarkeszletDAO raktarkeszletDAO = new RaktarkeszletDAOimpl();
-    private final RendelesDAO rendelesDAO = new RendelesDAOimpl();
 
-    public static boolean isMainPageInitialized = false;
+
 
     /*@FXML
     public void initialize() {
@@ -227,22 +351,7 @@ public class MainPage implements Initializable {
         }
     }*/
 
-    @FXML
-    void RendelesVakcinaDropdown(ActionEvent event) {
-        String vakcina = rendeles_combobox.getValue();
-        String helyszin = rendeles_combobox_helyszin.getValue();
-        if(vakcina != null && helyszin != null){
-            List<Raktarkeszlet> raktarkeszletList = raktarkeszletDAO.getRaktarkeszlet();
-            Optional<Raktarkeszlet> raktarkeszlet = raktarkeszletList.stream()
-                    .filter(d->d.getVakcina().getName().equals(vakcina) && d.getOltopont().getName().equals(helyszin))
-                    .findFirst();
-            if(raktarkeszlet.isPresent()){
-                Long aktualisDarabszam = raktarkeszlet.get().getQuantity();
-                darabLabel.setText(aktualisDarabszam.toString());
-                rendeles_tovabb_button.setDisable(aktualisDarabszam == 0L);
-            }
-        }
-    }
+
 
 
     @FXML
@@ -250,9 +359,9 @@ public class MainPage implements Initializable {
         List<Oltopont> oltopontok = oltopontDAO.getOltopontok();
         ObservableList<Oltopont> list = FXCollections.observableArrayList();
 
-        for (Oltopont kaka:
+        for (Oltopont item:
              oltopontok) {
-            list.add(kaka);
+            list.add(item);
         }
 
         Oltopont_neve.setItems(list);
@@ -279,34 +388,9 @@ public class MainPage implements Initializable {
     }
 
     @FXML
-    void RendelesHelyszinDropdown(ActionEvent event) {
-        RendelesVakcinaDropdown(event);
-    }
-
-    @FXML
-    void Rendeles_tovabb_action(ActionEvent event) {
-        Optional<Vakcina> optionalVakcina = vakcinaDAO.getVakcina().stream()
-                .filter(v->v.getName().equals(rendeles_combobox.getValue())).findFirst();
-        Optional<Oltopont> optionalOltopont = oltopontDAO.getOltopontok().stream()
-                .filter(o->o.getName().equals(rendeles_combobox_helyszin.getValue())).findFirst();
-
-        if(optionalVakcina.isPresent() && optionalOltopont.isPresent()){
-            Optional<Raktarkeszlet> optionalRaktarkeszlet = raktarkeszletDAO.getRaktarkeszlet().stream()
-                    .filter(r->r.getOltopont().getId().equals(optionalOltopont.get().getId())
-                    && r.getVakcina().getId().equals(optionalVakcina.get().getId())).findFirst();
-            if(optionalRaktarkeszlet.isPresent()) {
-                Raktarkeszlet raktarkeszlet = optionalRaktarkeszlet.get();
-                if(raktarkeszlet.getQuantity() > 0L) {
-                    Rendeles egyrendeles = new Rendeles(felhasznalo, optionalOltopont.get(),
-                            optionalVakcina.get(), LocalDateTime.now());
-                    rendelesDAO.saveRendeles(egyrendeles);
-                    OrderCancelButton.setDisable(false);
-                    raktarkeszlet.decreaseQuantity();
-                    raktarkeszletDAO.updateRaktarkeszlet(raktarkeszlet);
-                    darabLabel.setText(raktarkeszlet.getQuantity().toString());
-                }else{rendelesTeszt.setText("Raktárkészlet < 0");}
-            }else{rendelesTeszt.setText("Nem létezik a raktárkészlet");}
-        }else{rendelesTeszt.setText("Vakcina vagy oltopont nem létezik");}
+    void OrderNoButtonAction(ActionEvent event) {
+        Stage stageToClose = (Stage) OrderNoButton.getScene().getWindow();
+        stageToClose.close();
     }
 
 

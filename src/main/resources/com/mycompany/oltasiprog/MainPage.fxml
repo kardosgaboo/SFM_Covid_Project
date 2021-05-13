@@ -7,32 +7,64 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1; -fx-border-radius: 15;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.MainPage">
+<TabPane fx:id="mainTabPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fff9d1; -fx-border-radius: 15;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oltasiprog.MainPage">
   <tabs>
     <Tab text="Főoldal">
       <content>
         <AnchorPane id="1" minHeight="0.0" minWidth="0.0" prefHeight="406.0" prefWidth="645.0">
                <children>
                   <Button id="5757" fx:id="logoutButton" layoutX="542.0" layoutY="587.0" mnemonicParsing="false" onAction="#LogoutButtonEvent" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #d1d7ff; -fx-border-radius: 50; -fx-font-family: Garamond;" text="Kijelentkezés" />
-                  <BorderPane layoutX="57.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" />
-                  <Label layoutX="190.0" layoutY="169.0" text="FŐOLDAL">
+                  <Label layoutX="191.0" layoutY="35.0" text="FŐOLDAL">
                      <font>
                         <Font name="Georgia" size="72.0" />
                      </font>
                   </Label>
-                  <Label layoutX="109.0" layoutY="289.0" text="COVID-19 védőoltás regisztráció">
+                  <Label layoutX="109.0" layoutY="117.0" text="COVID-19 védőoltás regisztráció">
                      <font>
                         <Font name="Georgia" size="35.0" />
                      </font>
                   </Label>
+                  <Text layoutX="44.0" layoutY="638.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adatok frissítve: 2021.05.13." />
+                  <Text layoutX="38.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beoltottak száma: 4 391 794">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="38.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktív fertőzöttek: 172 456 ">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="38.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gyógyultak: 592 440">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="38.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elhunytak: 28 888">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="38.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hatósági házi karanténban: 18 872">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="38.0" layoutY="517.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mintavétel: 5 560 617">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="233.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Magyarországi statiszikák">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
                </children></AnchorPane>
       </content>
     </Tab>
@@ -41,20 +73,12 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <ListView fx:id="Oltopont_neve" layoutX="29.0" layoutY="40.0" onMouseClicked="#megnyomtam" prefHeight="583.0" prefWidth="327.0" />
-                  <Label fx:id="oltopont_cim" layoutX="356.0" layoutY="41.0" prefHeight="64.0" prefWidth="355.0" />
                   <Text layoutX="360.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oltópont címe:" wrappingWidth="166.9830722808838" />
                   <Text layoutX="29.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oltópont Neve:" wrappingWidth="166.9830722808838" />
+                  <TextArea fx:id="oltopont_cimek" layoutX="360.0" layoutY="40.0" onMouseClicked="#megnyomtam" prefHeight="582.0" prefWidth="351.0" />
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Önnek megfelelő vakcina">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <TextField layoutX="69.0" layoutY="34.0" prefHeight="26.0" prefWidth="236.0" promptText="Önnek a következő vakcinát ajánljuk" text="Adatbazis utan implementalas" />
-               </children></AnchorPane>
-        </content>
-      </Tab>
       <Tab text="Vakcina információk">
          <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="732.0">
@@ -66,11 +90,6 @@
                         <Font name="Gadugi" size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="vakcinainfoKep" fitHeight="150.0" fitWidth="200.0" layoutX="395.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Image/astrazenecalogo.png" />
-                     </image>
-                  </ImageView>
                </children>
             </AnchorPane>
          </content>
@@ -80,32 +99,19 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <ComboBox fx:id="rendeles_combobox" focusTraversable="false" layoutX="211.0" layoutY="191.0" onAction="#RendelesVakcinaDropdown" prefHeight="31.0" prefWidth="299.0" promptText="Nyissa le a listát..." style="-fx-background-color: #d1d7ff;" />
-                  <Text layoutX="114.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Az alábbi listából válasszon egy elérhető vakcinát!">
+                  <Text layoutX="114.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Az alábbi listából válasszon egy elérhető vakcinát!">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font>
                   </Text>
-                  <Button fx:id="rendeles_tovabb_button" focusTraversable="false" layoutX="539.0" layoutY="558.0" mnemonicParsing="false" onAction="#Rendeles_tovabb_action" prefHeight="38.0" prefWidth="138.0" style="-fx-background-color: #d1d7ff;" text="Tovább" />
-                  <Label fx:id="elerheto_mennyiseg_label" layoutX="42.0" layoutY="404.0" prefHeight="43.0" prefWidth="230.0" text="Elérhető mennyiség:">
-                     <font>
-                        <Font size="23.0" />
-                     </font></Label>
+                  <Button fx:id="rendeles_tovabb_button" focusTraversable="false" layoutX="539.0" layoutY="558.0" mnemonicParsing="false" onAction="#Rendeles_tovabb_action" prefHeight="38.0" prefWidth="138.0" style="-fx-background-color: #d1d7ff;" text="Rendelés leadása" />
                   <ComboBox fx:id="rendeles_combobox_helyszin" focusTraversable="false" layoutX="211.0" layoutY="290.0" onAction="#RendelesHelyszinDropdown" prefHeight="31.0" prefWidth="299.0" promptText="Nyissa le a listát..." style="-fx-background-color: #d1d7ff;" />
-                  <Text layoutX="134.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Válassza ki hova szeretné megrendelni!">
+                  <Text layoutX="222.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Válassza ki hova szeretné megrendelni!">
                      <font>
                         <Font name="System Bold Italic" size="15.0" />
                      </font>
                   </Text>
-                  <Label fx:id="darabLabel" layoutX="264.0" layoutY="408.0" text="Label">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="rendelesTeszt" layoutX="28.0" layoutY="496.0" text="Label">
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Label>
+                  <Text fx:id="rendelesTeszt1" layoutX="77.0" layoutY="582.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                </children>
             </AnchorPane>
         </content>
@@ -119,57 +125,57 @@
                         <Font size="45.0" />
                      </font>
                   </Text>
-                  <Text layoutX="52.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Név:" wrappingWidth="58.936737060546875">
+                  <Text layoutX="56.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Név:" wrappingWidth="58.936737060546875">
                      <font>
-                        <Font size="23.0" />
+                        <Font name="System Bold" size="23.0" />
                      </font>
                   </Text>
-                  <Text layoutX="51.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="87.73672485351562">
+                  <Text layoutX="56.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="87.73672485351562">
                      <font>
-                        <Font size="23.0" />
+                        <Font name="System Bold" size="23.0" />
                      </font>
                   </Text>
-                  <Text layoutX="48.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAJ szám:" wrappingWidth="104.53677368164062">
+                  <Text layoutX="56.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAJ szám:" wrappingWidth="108.53677368164062">
                      <font>
-                        <Font size="23.0" />
+                        <Font name="System Bold" size="23.0" />
                      </font>
                   </Text>
-                  <Text layoutX="51.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Születési idő:" wrappingWidth="150.93673706054688">
+                  <Text layoutX="56.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Születési idő:" wrappingWidth="150.93673706054688">
                      <font>
-                        <Font size="23.0" />
+                        <Font name="System Bold" size="23.0" />
                      </font>
                   </Text>
-                  <Text layoutX="48.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rendelés:" wrappingWidth="103.73675537109375">
+                  <Text layoutX="58.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rendelés:" wrappingWidth="103.73675537109375">
                      <font>
-                        <Font size="23.0" />
+                        <Font name="System Bold" size="23.0" />
                      </font>
                   </Text>
-                  <Label fx:id="rendelesNev" layoutX="111.0" layoutY="124.0" text="Label">
+                  <Label fx:id="rendelesNev" layoutX="116.0" layoutY="126.0" text="Label">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="rendelesEmail" layoutX="125.0" layoutY="196.0" text="Label">
+                  <Label fx:id="rendelesEmail" layoutX="134.0" layoutY="198.0" text="Label">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="rendelesTAJ" layoutX="164.0" layoutY="281.0" text="Label">
+                  <Label fx:id="rendelesTAJ" layoutX="174.0" layoutY="283.0" text="Label">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="rendelesSzulDat" layoutX="202.0" layoutY="363.0" text="Label">
+                  <Label fx:id="rendelesSzulDat" layoutX="207.0" layoutY="365.0" text="Label">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="rendelesRendelesInfo" layoutX="164.0" layoutY="447.0" text="Label">
+                  <Label fx:id="rendelesRendelesInfo" layoutX="56.0" layoutY="472.0" text="Label">
                      <font>
-                        <Font size="23.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="OrderCancelButton" layoutX="48.0" layoutY="553.0" mnemonicParsing="false" onAction="#OrderCancelButtonAction" text="Rendeles törlése" />
+                  <Button fx:id="OrderCancelButton" layoutX="591.0" layoutY="624.0" mnemonicParsing="false" onAction="#OrderCancelButtonAction" text="Rendeles törlése" />
                </children>
             </AnchorPane>
         </content>
